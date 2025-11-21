@@ -75,15 +75,13 @@ const GradePage: React.FC = () => {
   const handleDeleteSection = (e: React.MouseEvent, sectionId: number) => {
     e.stopPropagation();
     e.preventDefault();
-    if (window.confirm('هل تريد حذف هذا الفصل وجميع طلابه؟')) {
-      db.deleteSection(sectionId);
-      const remaining = db.getSections(gradeId);
-      setSections(remaining);
-      if (activeSection === sectionId) {
-        setActiveSection(remaining[0]?.id || 0);
-      } else {
-        refreshData();
-      }
+    db.deleteSection(sectionId);
+    const remaining = db.getSections(gradeId);
+    setSections(remaining);
+    if (activeSection === sectionId) {
+      setActiveSection(remaining[0]?.id || 0);
+    } else {
+      refreshData();
     }
   };
 
@@ -97,11 +95,9 @@ const GradePage: React.FC = () => {
   const handleDeleteStudent = (studentId: number, e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    if (window.confirm('حذف الطالب؟')) {
-      db.deleteStudent(studentId);
-      setStudentMenuId(null);
-      refreshStudents(); // Update UI immediately
-    }
+    db.deleteStudent(studentId);
+    setStudentMenuId(null);
+    refreshStudents(); // Update UI immediately
   };
 
   const handleBulkSubmit = () => {
@@ -118,10 +114,8 @@ const GradePage: React.FC = () => {
   };
 
   const handleDeleteGrade = () => {
-    if (window.confirm(`هل أنت متأكد من حذف ${currentGrade?.name} وكل بياناته؟`)) {
-      db.deleteGrade(gradeId);
-      navigate('/home');
-    }
+    db.deleteGrade(gradeId);
+    navigate('/home');
   };
 
   useEffect(() => {
@@ -157,8 +151,8 @@ const GradePage: React.FC = () => {
             role="button"
             tabIndex={0}
             className={`px-6 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-colors relative group flex items-center gap-2 cursor-pointer select-none ${activeSection === section.id
-                ? 'bg-blue-600 text-white shadow-md dark:bg-blue-700'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+              ? 'bg-blue-600 text-white shadow-md dark:bg-blue-700'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
               }`}
           >
             {section.name}
@@ -308,8 +302,8 @@ const GradePage: React.FC = () => {
                     key={cat}
                     onClick={() => setBulkCategory(cat)}
                     className={`p-3 rounded-xl border-2 text-xs font-bold transition-all ${bulkCategory === cat
-                        ? 'border-green-500 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300'
-                        : 'border-gray-100 bg-gray-50 text-gray-600 dark:bg-gray-700 dark:border-gray-600'
+                      ? 'border-green-500 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300'
+                      : 'border-gray-100 bg-gray-50 text-gray-600 dark:bg-gray-700 dark:border-gray-600'
                       }`}
                   >
                     {RECOGNITION_LABELS[cat]}
